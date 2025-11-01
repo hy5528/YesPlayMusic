@@ -22,9 +22,8 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/yesplaymusic
+          images: ${{ secrets.DOCKER_HUB_USERNAME }}/yesplaymusic
           tags: |
-            type=raw,value={{date 'YYYYMMDD' tz='Asia/Shanghai'}}
             type=raw,value=latest
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -42,7 +41,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./Dockerfile.new
+          file: ./Dockerfile
           push: true
           platforms: linux/amd64, linux/arm64,linux/arm/v7
           tags: ${{ steps.meta.outputs.tags }}
